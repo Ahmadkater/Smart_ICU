@@ -1,0 +1,42 @@
+<div class="jumbotron">
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Patient</th>
+                <th scope="col">Signals</th>
+                <th scope="col">Mode</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Alarm</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">{{ID}}</th>
+                <td>
+                    <thead>
+                        <tr>
+                            <th scope="col">ECG</th>
+                            <th scope="col">Temperature(C)</th>
+                            <th scope="col">Hear Rate(bpm)</th>
+                        </tr>
+                    </thead>
+        <tbody>
+            <tr>
+                <td>{{ECG}}</td>
+                <td>{{TEMP}}</td>
+                <td>{{HR}}</td>
+            </tr>
+        </tbody>
+        </td>
+        <td>{{bluetooth_mode}}</td>
+        <td>some text and bttn</td>
+        <td>Alarm bttn</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div style="display: block">
+    <canvas id="canvas">
+        
+    </canvas>
+</div>
