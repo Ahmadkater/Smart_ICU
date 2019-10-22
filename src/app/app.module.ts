@@ -12,20 +12,21 @@ import { PlotComponent } from './plot/plot.component';
 import { HomeComponent } from './home/home.component';
 
 import { ChartsModule } from "ng2-charts";
-
+import { LineChartComponent } from './plot/line-chart/line-chart.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PlotComponent,
-    HomeComponent
+    HomeComponent,
+    LineChartComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
-    ChartsModule,
+    ChartsModule
   ],
   providers: [ManageService],
   bootstrap: [AppComponent]
