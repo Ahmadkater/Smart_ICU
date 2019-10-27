@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ManageService } from '../service/manage.service';
+import { Chart } from "chart.js";
+
 
 @Component({
   selector: 'app-plot',
@@ -7,24 +9,34 @@ import { ManageService } from '../service/manage.service';
   styleUrls: ['./plot.component.css']
 })
 export class PlotComponent implements OnInit {
-  
-  constructor(private manageservice: ManageService) { }
 
-  patient_data = [];
-  bluetooth_mode : string ;
-  ECG : number;
-  HR : number;
-  ID : number;
-  TEMP : number;
+  constructor(private manageservice: ManageService) { }
+  
+  bluetooth_mode: string;
+  ECG: number;
+  HR: number;
+  ID: number;
+  TEMP: number;
+
+  comment:string;
+
+  count=0;
+  myChart = null;
 
   ngOnInit() {
     this.get_communication_mode();
     this.get_patient_data();
-
   }
 
-  get_communication_mode(){
-    this.manageservice.getmode().subscribe(
+  send_comment(){
+    console.log(this.comment);
+    this.manageservice.put_comment(this.comment);
+    this.comment = null
+  }
+
+
+  get_communication_mode() {
+    this.manageservice.get_mode().subscribe(
       item => {
         console.log(item);
         this.bluetooth_mode = item.payload.val();
@@ -32,18 +44,53 @@ export class PlotComponent implements OnInit {
     );
   }
 
-  get_patient_data(){
-    this.manageservice.getpatient().subscribe(
-      list => {
-        console.log(list);
-        this.ECG = list[0].payload.val();
-        this.HR = list[1].payload.val();
-        this.ID = list[2].payload.val();
-        this.TEMP = list[3].payload.val();
-        });
+  get_patient_data() {
+    this.manageservice.get_id().subscribe(item => {this.ID = item.payload.val();});
+    this.manageservice.get_hr().subscribe(item => {this.HR = item.payload.val();});
+    this.manageservice.get_temp().subscribe(item => {this.TEMP = item.payload.val();});
+    this.manageservice.get_ecg().subscribe(item => {console.log(item);this.ECG = item.payload.val();this.plot();this.count++;});
   }
 
-  plot(){
-
+  plot()
+  {
+    if (this.myChart)
+    {
+      this.addData(this.myChart, this.count, this.ECG);
+    }
+    else {
+      this.myChart = new Chart('myChart', {
+        type: 'line',
+        data: {
+          labels: [this.count],
+          datasets: [{
+            label: 'ECG',
+            //data: this.points,
+            backgroundColor: "blue",
+            borderColor: "blue",
+            borderWidth: 1,
+            fill: false
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }],
+          }
+        }
+      })
+      console.log(this.myChart);
+    }
   }
+
+  addData(chart, label, data)
+  {
+    chart.data.labels.push(label);
+    chart.data.datasets[0].data.push(data);
+    chart.update();
+  }
+
 }
+

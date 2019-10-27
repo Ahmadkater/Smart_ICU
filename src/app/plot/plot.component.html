@@ -6,7 +6,6 @@
                 <th scope="col">Signals</th>
                 <th scope="col">Mode</th>
                 <th scope="col">Comment</th>
-                <th scope="col">Monitor</th>
             </tr>
         </thead>
         <tbody>
@@ -29,9 +28,24 @@
         </tbody>
         </td>
         <td>{{bluetooth_mode}}</td>
-        <td>some text and bttn</td>
-        <td><app-line-chart></app-line-chart></td>
+        <td>
+
+            <div class="input-group mb-3">
+                <input [(ngModel)]="comment" type="text" class="form-control" placeholder="Add Comment">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button" (click)="send_comment()">Send</button>
+                </div>
+            </div>
+
+        </td>
         </tr>
+        </tbody>
+        <tbody>
+            <td colspan="3">
+                <div>
+                    <canvas id="myChart" width="150" height="50"></canvas>
+                </div>
+            </td>
         </tbody>
     </table>
 </div>

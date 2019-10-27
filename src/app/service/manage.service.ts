@@ -8,17 +8,37 @@ import { AngularFireDatabase , AngularFireList, AngularFireObject } from "angula
 export class ManageService {
 
   constructor( private db :AngularFireDatabase) { }
-  patient : AngularFireList<any>;
+  id : AngularFireObject<any>;
+  temp : AngularFireObject<any>;
+  ecg : AngularFireObject<any>;
+  hr : AngularFireObject<any>;
   mode : AngularFireObject<any>;
 
-  getpatient(){
-    this.patient = this.db.list('Patient');
-    return this.patient.snapshotChanges();
+  get_id(){
+    this.id = this.db.object('ID');
+    return this.id.snapshotChanges();
+  }
+  get_ecg(){
+    this.ecg = this.db.object('ECG');
+    return this.ecg.snapshotChanges();
+  }
+  get_temp(){
+    this.temp = this.db.object('TEMP');
+    return this.temp.snapshotChanges();
   }
 
-  getmode(){
-    this.mode = this.db.object('Mode');
+  get_hr(){
+    this.hr = this.db.object('HR');
+    return this.hr.snapshotChanges();
+  }
+
+  get_mode(){
+    this.mode = this.db.object('MODE');
     return this.mode.snapshotChanges();
+  }
+
+  put_comment(new_comment){
+    this.db.object('/').update({Comment:new_comment});
   }
 
 }
