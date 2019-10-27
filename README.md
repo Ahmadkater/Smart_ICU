@@ -1,3 +1,9 @@
+# Install Required packages
+
+` 
+npm install --save chart.js@2.7.2 firebase@7.2.1 angularfire2@5.2.1 jquery@3.4.1
+`
+
 # Webapp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.2.
